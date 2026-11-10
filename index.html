@@ -1,0 +1,996 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Easy Steps to Chinese 1 - Unit 1 Homework (第一课 作业)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+SC:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Fredoka", "Noto Sans SC", sans-serif;
+        background-color: #f4f6ff;
+      }
+      .chinese-font {
+        font-family: "Noto Sans SC", sans-serif;
+      }
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+        body {
+          background: white;
+        }
+        .print-border {
+          border: 2px solid #000 !important;
+          box-shadow: none !important;
+        }
+        .page-break {
+          page-break-after: always;
+        }
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #ffb703;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen text-slate-800 pb-12">
+    <!-- Top Header Navigation -->
+    <header
+      class="bg-amber-400 border-b-4 border-amber-500 sticky top-0 z-50 shadow-md no-print"
+    >
+      <div
+        class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="bg-red-500 text-white p-2 rounded-2xl shadow font-bold text-xl flex items-center justify-center w-12 h-12"
+          >
+            一
+          </div>
+          <div>
+            <h1
+              class="text-xl md:text-2xl font-bold text-red-900 leading-tight"
+            >
+              Easy Steps to Chinese 1
+            </h1>
+            <p
+              class="text-xs md:text-sm font-semibold text-amber-950 chinese-font"
+            >
+              第一课: 数字 (1-10), 拼音, 笔画 & 我有...
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Controls -->
+        <div class="flex items-center space-x-2">
+          <button
+            onclick="toggleMode()"
+            id="modeBtn"
+            class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl font-bold text-sm shadow transition flex items-center gap-2 chinese-font"
+          >
+            <i class="fa-solid fa-gamepad"></i>
+            <span id="modeText">互动模式</span>
+          </button>
+          <button
+            onclick="window.print()"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold text-sm shadow transition flex items-center gap-2 chinese-font"
+          >
+            <i class="fa-solid fa-print"></i> <span>打印作业</span>
+          </button>
+          <button
+            onclick="checkAnswers()"
+            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl font-bold text-sm shadow transition flex items-center gap-2 chinese-font"
+          >
+            <i class="fa-solid fa-circle-check"></i> <span>检查成绩</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 mt-6">
+      <!-- Student Info Header Card -->
+      <div
+        class="bg-white rounded-3xl p-6 shadow-xl border-4 border-amber-200 mb-8 print-border"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="flex items-center space-x-2">
+            <span class="font-bold text-amber-700 text-lg chinese-font"
+              >姓名 (Xìngmíng):</span
+            >
+            <input
+              type="text"
+              placeholder="请输入学生姓名..."
+              class="border-2 border-amber-300 rounded-xl px-3 py-1.5 focus:outline-none focus:border-amber-500 font-semibold text-slate-700 w-full chinese-font"
+            />
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="font-bold text-amber-700 text-lg chinese-font"
+              >日期 (Rìqī):</span
+            >
+            <input
+              type="date"
+              class="border-2 border-amber-300 rounded-xl px-3 py-1.5 focus:outline-none focus:border-amber-500 font-semibold text-slate-700 w-full"
+            />
+          </div>
+          <div
+            class="flex items-center justify-between md:justify-end space-x-3 bg-amber-50 px-4 py-2 rounded-2xl border border-amber-200"
+          >
+            <span class="font-bold text-amber-800 chinese-font"
+              >得分 (Fēnshù):</span
+            >
+            <span id="scoreDisplay" class="text-3xl font-black text-red-600"
+              >0 / 100</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions Banner -->
+      <div
+        class="bg-gradient-to-r from-red-500 to-orange-500 rounded-3xl p-5 text-white shadow-lg mb-8 flex items-center justify-between no-print"
+      >
+        <div class="flex items-center space-x-4">
+          <div class="text-4xl">✏️</div>
+          <div>
+            <h2 class="text-lg font-bold chinese-font">
+              作业说明 (Zuòyè shuōmíng)
+            </h2>
+            <p class="text-sm text-amber-100 chinese-font">
+              请完成以下练习！点击 🔊 按钮听拼音和中文发音。
+            </p>
+          </div>
+        </div>
+        <div
+          id="badgeCount"
+          class="bg-amber-300 text-amber-900 px-4 py-2 rounded-2xl font-bold text-sm shadow chinese-font"
+        >
+          ⭐ 0 颗星
+        </div>
+      </div>
+
+      <!-- SECTION 1: NUMBERS & HAND GESTURES (数字与手势) -->
+      <section
+        class="bg-white rounded-3xl p-6 shadow-xl border-4 border-amber-200 mb-8 print-border"
+      >
+        <div
+          class="flex items-center space-x-3 mb-6 border-b-2 border-amber-100 pb-3"
+        >
+          <span
+            class="bg-red-500 text-white font-black text-lg px-3 py-1 rounded-xl chinese-font"
+            >第一部分</span
+          >
+          <h3 class="xl:text-xl font-bold text-slate-800 chinese-font">
+            数字 (1-10) 与拼音练习 (Shùzì yǔ pīnyīn liànxí)
+          </h3>
+        </div>
+
+        <!-- Task 1.1: Match Number to Hanzi/Pinyin -->
+        <div class="mb-8">
+          <p class="font-semibold text-slate-700 mb-4 chinese-font">
+            1. 选择正确的汉字和拼音 (Xuǎnzé zhèngquè de hànzì hé pīnyīn):
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+            <!-- Q1 -->
+            <div
+              class="bg-slate-50 p-4 rounded-2xl border-2 border-slate-200 text-center flex flex-col items-center"
+            >
+              <span class="text-3xl font-black text-blue-600 mb-2">3</span>
+              <button
+                onclick="speak('三')"
+                class="text-xs bg-amber-100 hover:bg-amber-200 text-amber-800 px-2 py-1 rounded-full mb-3 no-print chinese-font"
+              >
+                <i class="fa-solid fa-volume-high"></i> 听发音 (Tīng fāyīn)
+              </button>
+              <select
+                id="q1"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1.5 font-bold text-center text-lg focus:border-amber-500 chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="sān">三 (sān)</option>
+                <option value="wǔ">五 (wǔ)</option>
+                <option value="qī">七 (qī)</option>
+                <option value="jiǔ">九 (jiǔ)</option>
+              </select>
+            </div>
+
+            <!-- Q2 -->
+            <div
+              class="bg-slate-50 p-4 rounded-2xl border-2 border-slate-200 text-center flex flex-col items-center"
+            >
+              <span class="text-3xl font-black text-blue-600 mb-2">6</span>
+              <button
+                onclick="speak('六')"
+                class="text-xs bg-amber-100 hover:bg-amber-200 text-amber-800 px-2 py-1 rounded-full mb-3 no-print chinese-font"
+              >
+                <i class="fa-solid fa-volume-high"></i> 听发音 (Tīng fāyīn)
+              </button>
+              <select
+                id="q2"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1.5 font-bold text-center text-lg focus:border-amber-500 chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="sì">四 (sì)</option>
+                <option value="liù">六 (liù)</option>
+                <option value="bā">八 (bā)</option>
+                <option value="shí">十 (shí)</option>
+              </select>
+            </div>
+
+            <!-- Q3 -->
+            <div
+              class="bg-slate-50 p-4 rounded-2xl border-2 border-slate-200 text-center flex flex-col items-center"
+            >
+              <span class="text-3xl font-black text-blue-600 mb-2">8</span>
+              <button
+                onclick="speak('八')"
+                class="text-xs bg-amber-100 hover:bg-amber-200 text-amber-800 px-2 py-1 rounded-full mb-3 no-print chinese-font"
+              >
+                <i class="fa-solid fa-volume-high"></i> 听发音 (Tīng fāyīn)
+              </button>
+              <select
+                id="q3"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1.5 font-bold text-center text-lg focus:border-amber-500 chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="bā">八 (bā)</option>
+                <option value="èr">二 (èr)</option>
+                <option value="qī">七 (qī)</option>
+                <option value="yī">一 (yī)</option>
+              </select>
+            </div>
+
+            <!-- Q4 -->
+            <div
+              class="bg-slate-50 p-4 rounded-2xl border-2 border-slate-200 text-center flex flex-col items-center"
+            >
+              <span class="text-3xl font-black text-blue-600 mb-2">5</span>
+              <button
+                onclick="speak('五')"
+                class="text-xs bg-amber-100 hover:bg-amber-200 text-amber-800 px-2 py-1 rounded-full mb-3 no-print chinese-font"
+              >
+                <i class="fa-solid fa-volume-high"></i> 听发音 (Tīng fāyīn)
+              </button>
+              <select
+                id="q4"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1.5 font-bold text-center text-lg focus:border-amber-500 chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="sān">三 (sān)</option>
+                <option value="wǔ">五 (wǔ)</option>
+                <option value="jiǔ">九 (jiǔ)</option>
+                <option value="shí">十 (shí)</option>
+              </select>
+            </div>
+
+            <!-- Q5 -->
+            <div
+              class="bg-slate-50 p-4 rounded-2xl border-2 border-slate-200 text-center flex flex-col items-center"
+            >
+              <span class="text-3xl font-black text-blue-600 mb-2">10</span>
+              <button
+                onclick="speak('十')"
+                class="text-xs bg-amber-100 hover:bg-amber-200 text-amber-800 px-2 py-1 rounded-full mb-3 no-print chinese-font"
+              >
+                <i class="fa-solid fa-volume-high"></i> 听发音 (Tīng fāyīn)
+              </button>
+              <select
+                id="q5"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1.5 font-bold text-center text-lg focus:border-amber-500 chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="yī">一 (yī)</option>
+                <option value="sì">四 (sì)</option>
+                <option value="shí">十 (shí)</option>
+                <option value="liù">六 (liù)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task 1.2: Hand Gesture & Object Counting -->
+        <div>
+          <p class="font-semibold text-slate-700 mb-4 chinese-font">
+            2. 数一数物品 / 识别中国传统手势数字 (Shǔ yī shǔ wùpǐn / Shíbié
+            chuántǒng shǒushì shùzì):
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Object Count A -->
+            <div
+              class="border-2 border-dashed border-amber-300 rounded-2xl p-4 text-center bg-amber-50/50"
+            >
+              <div
+                class="flex justify-center items-center space-x-2 text-3xl mb-3"
+              >
+                🍎 🍎 🍎 🍎 🍎 🍎 🍎
+              </div>
+              <p class="text-xs text-slate-500 mb-2 chinese-font">
+                上面有多少个苹果？ (Shàngmiàn yǒu duōshǎo gè píngguǒ?)
+              </p>
+              <select
+                id="q6"
+                class="w-full border-2 border-slate-300 rounded-xl px-3 py-2 font-bold text-center focus:border-amber-500 chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="5">五 (wǔ)</option>
+                <option value="7">七 (qī)</option>
+                <option value="9">九 (jiǔ)</option>
+              </select>
+            </div>
+
+            <!-- Hand Gesture B -->
+            <div
+              class="border-2 border-dashed border-amber-300 rounded-2xl p-4 text-center bg-amber-50/50"
+            >
+              <div class="text-4xl mb-2">🤙</div>
+              <p class="text-xs font-bold text-slate-600 mb-1 chinese-font">
+                手势: 大拇指和小指 (Dàmǔzhǐ hé xiǎozhǐ)
+              </p>
+              <p class="text-xs text-slate-500 mb-2 chinese-font">
+                这代表数字几？ (Zhè dàibiǎo shùzì jǐ?)
+              </p>
+              <select
+                id="q7"
+                class="w-full border-2 border-slate-300 rounded-xl px-3 py-2 font-bold text-center focus:border-amber-500 chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="6">六 (liù)</option>
+                <option value="8">八 (bā)</option>
+                <option value="10">十 (shí)</option>
+              </select>
+            </div>
+
+            <!-- Hand Gesture C -->
+            <div
+              class="border-2 border-dashed border-amber-300 rounded-2xl p-4 text-center bg-amber-50/50"
+            >
+              <div class="text-4xl mb-2">🫵 ➕ ☝️</div>
+              <p class="text-xs font-bold text-slate-600 mb-1 chinese-font">
+                手势: 交叉食指 (Jiāochā shízhi)
+              </p>
+              <p class="text-xs text-slate-500 mb-2 chinese-font">
+                这代表数字几？ (Zhè dàibiǎo shùzì jǐ?)
+              </p>
+              <select
+                id="q8"
+                class="w-full border-2 border-slate-300 rounded-xl px-3 py-2 font-bold text-center focus:border-amber-500 chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="4">四 (sì)</option>
+                <option value="8">八 (bā)</option>
+                <option value="10">十 (shí)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: BASIC STROKES & TRACING (基础笔画) -->
+      <section
+        class="bg-white rounded-3xl p-6 shadow-xl border-4 border-amber-200 mb-8 print-border"
+      >
+        <div
+          class="flex items-center space-x-3 mb-6 border-b-2 border-amber-100 pb-3"
+        >
+          <span
+            class="bg-amber-500 text-white font-black text-lg px-3 py-1 rounded-xl chinese-font"
+            >第二部分</span
+          >
+          <h3 class="xl:text-xl font-bold text-slate-800 chinese-font">
+            基本笔画 (Jīběn bǐhuà)
+          </h3>
+        </div>
+
+        <!-- Task 2.1: Stroke Recognition -->
+        <div class="mb-8">
+          <p class="font-semibold text-slate-700 mb-4 chinese-font">
+            1. 选择正确的汉字基本笔画名称 (Xuǎnzé zhèngquè de hànzì jīběn bǐhuà
+            míngchēng):
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div
+              class="bg-red-50 p-4 rounded-2xl border-2 border-red-200 flex flex-col items-center"
+            >
+              <span class="text-4xl font-black text-red-600 mb-1">一</span>
+              <span class="text-xs font-bold text-slate-500 mb-3 chinese-font"
+                >(横 - Héng)</span
+              >
+              <select
+                id="q9"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1.5 font-bold text-center text-sm chinese-font"
+              >
+                <option value="">-- 选择笔画 --</option>
+                <option value="héng">横 (héng)</option>
+                <option value="shù">竖 (shù)</option>
+                <option value="piě">撇 (piě)</option>
+                <option value="nà">捺 (nà)</option>
+              </select>
+            </div>
+
+            <div
+              class="bg-red-50 p-4 rounded-2xl border-2 border-red-200 flex flex-col items-center"
+            >
+              <span class="text-4xl font-black text-red-600 mb-1">丨</span>
+              <span class="text-xs font-bold text-slate-500 mb-3 chinese-font"
+                >(竖 - Shù)</span
+              >
+              <select
+                id="q10"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1.5 font-bold text-center text-sm chinese-font"
+              >
+                <option value="">-- 选择笔画 --</option>
+                <option value="héng">横 (héng)</option>
+                <option value="shù">竖 (shù)</option>
+                <option value="diǎn">点 (diǎn)</option>
+                <option value="piě">撇 (piě)</option>
+              </select>
+            </div>
+
+            <div
+              class="bg-red-50 p-4 rounded-2xl border-2 border-red-200 flex flex-col items-center"
+            >
+              <span class="text-4xl font-black text-red-600 mb-1">丿</span>
+              <span class="text-xs font-bold text-slate-500 mb-3 chinese-font"
+                >(撇 - Piě)</span
+              >
+              <select
+                id="q11"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1.5 font-bold text-center text-sm chinese-font"
+              >
+                <option value="">-- 选择笔画 --</option>
+                <option value="nà">捺 (nà)</option>
+                <option value="piě">撇 (piě)</option>
+                <option value="diǎn">点 (diǎn)</option>
+                <option value="héng">横 (héng)</option>
+              </select>
+            </div>
+
+            <div
+              class="bg-red-50 p-4 rounded-2xl border-2 border-red-200 flex flex-col items-center"
+            >
+              <span class="text-4xl font-black text-red-600 mb-1">乀</span>
+              <span class="text-xs font-bold text-slate-500 mb-3 chinese-font"
+                >(捺 - Nà)</span
+              >
+              <select
+                id="q12"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1.5 font-bold text-center text-sm chinese-font"
+              >
+                <option value="">-- 选择笔画 --</option>
+                <option value="nà">捺 (nà)</option>
+                <option value="tí">提 (tí)</option>
+                <option value="shù">竖 (shù)</option>
+                <option value="diǎn">点 (diǎn)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task 2.2: Interactive Hanzi Tracing Canvas -->
+        <div class="no-print">
+          <p class="font-semibold text-slate-700 mb-2 chinese-font">
+            2. 汉字书写练习 (Tiánzìgé):
+          </p>
+          <p class="text-xs text-slate-500 mb-4 chinese-font">
+            请在田字格内练习写汉字 <b>十</b> 和 <b>八</b>：
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-6">
+            <!-- Canvas 1: 十 -->
+            <div
+              class="flex flex-col items-center bg-amber-50 p-4 rounded-2xl border-2 border-amber-300"
+            >
+              <span class="font-bold text-slate-700 mb-2 chinese-font"
+                >汉字: 十 (Shí)</span
+              >
+              <div
+                class="relative w-40 h-40 border-4 border-red-400 bg-white shadow-inner"
+              >
+                <div
+                  class="absolute inset-0 border-b border-dashed border-red-200 top-1/2"
+                ></div>
+                <div
+                  class="absolute inset-0 border-r border-dashed border-red-200 left-1/2"
+                ></div>
+                <canvas
+                  id="canvas1"
+                  width="160"
+                  height="160"
+                  class="absolute inset-0 cursor-crosshair z-10"
+                ></canvas>
+              </div>
+              <button
+                onclick="clearCanvas('canvas1')"
+                class="mt-3 text-xs bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1 rounded-lg font-bold chinese-font"
+              >
+                <i class="fa-solid fa-eraser"></i> 清除 (Qīngchú)
+              </button>
+            </div>
+
+            <!-- Canvas 2: 八 -->
+            <div
+              class="flex flex-col items-center bg-amber-50 p-4 rounded-2xl border-2 border-amber-300"
+            >
+              <span class="font-bold text-slate-700 mb-2 chinese-font"
+                >汉字: 八 (Bā)</span
+              >
+              <div
+                class="relative w-40 h-40 border-4 border-red-400 bg-white shadow-inner"
+              >
+                <div
+                  class="absolute inset-0 border-b border-dashed border-red-200 top-1/2"
+                ></div>
+                <div
+                  class="absolute inset-0 border-r border-dashed border-red-200 left-1/2"
+                ></div>
+                <canvas
+                  id="canvas2"
+                  width="160"
+                  height="160"
+                  class="absolute inset-0 cursor-crosshair z-10"
+                ></canvas>
+              </div>
+              <button
+                onclick="clearCanvas('canvas2')"
+                class="mt-3 text-xs bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1 rounded-lg font-bold chinese-font"
+              >
+                <i class="fa-solid fa-eraser"></i> 清除 (Qīngchú)
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: PINYIN & INITIALS (拼音与声母) -->
+      <section
+        class="bg-white rounded-3xl p-6 shadow-xl border-4 border-amber-200 mb-8 print-border"
+      >
+        <div
+          class="flex items-center space-x-3 mb-6 border-b-2 border-amber-100 pb-3"
+        >
+          <span
+            class="bg-blue-500 text-white font-black text-lg px-3 py-1 rounded-xl chinese-font"
+            >第三部分</span
+          >
+          <h3 class="xl:text-xl font-bold text-slate-800 chinese-font">
+            拼音与声母 (Pīnyīn yǔ shēngmǔ)
+          </h3>
+        </div>
+
+        <!-- Task 3.1: Tone Recognition -->
+        <div class="mb-8">
+          <p class="font-semibold text-slate-700 mb-4 chinese-font">
+            1. 听音频，选择正确的声调 (Tīng yīnpín, xuǎnzé zhèngquè de
+            shēngdiào):
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Tone Q1 -->
+            <div
+              class="bg-blue-50 p-4 rounded-2xl border-2 border-blue-200 flex items-center justify-between"
+            >
+              <div class="flex items-center space-x-3">
+                <button
+                  onclick="speak('bā')"
+                  class="bg-blue-600 text-white px-3 py-2 rounded-xl text-sm font-bold shadow hover:bg-blue-700 chinese-font"
+                >
+                  <i class="fa-solid fa-volume-high"></i> 听 "bā"
+                </button>
+                <span class="font-bold text-slate-700 chinese-font"
+                  >"bā" 是第几声？</span
+                >
+              </div>
+              <select
+                id="q13"
+                class="border-2 border-slate-300 rounded-xl px-3 py-1.5 font-bold chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="1">第一声 (̄)</option>
+                <option value="2">第二声 (́)</option>
+                <option value="3">第三声 (̌)</option>
+                <option value="4">第四声 (̀)</option>
+              </select>
+            </div>
+
+            <!-- Tone Q2 -->
+            <div
+              class="bg-blue-50 p-4 rounded-2xl border-2 border-blue-200 flex items-center justify-between"
+            >
+              <div class="flex items-center space-x-3">
+                <button
+                  onclick="speak('wǔ')"
+                  class="bg-blue-600 text-white px-3 py-2 rounded-xl text-sm font-bold shadow hover:bg-blue-700 chinese-font"
+                >
+                  <i class="fa-solid fa-volume-high"></i> 听 "wǔ"
+                </button>
+                <span class="font-bold text-slate-700 chinese-font"
+                  >"wǔ" 是第几声？</span
+                >
+              </div>
+              <select
+                id="q14"
+                class="border-2 border-slate-300 rounded-xl px-3 py-1.5 font-bold chinese-font"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="1">第一声 (̄)</option>
+                <option value="2">第二声 (́)</option>
+                <option value="3">第三声 (̌)</option>
+                <option value="4">第四声 (̀)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task 3.2: Initial Konsonan Matching -->
+        <div>
+          <p class="font-semibold text-slate-700 mb-4 chinese-font">
+            2. 选择正确的声母或韵母 (Xuǎnzé zhèngquè de shēngmǔ huò yùnmǔ):
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="border-2 border-slate-200 rounded-2xl p-4 text-center">
+              <span class="text-2xl font-black text-slate-800">朋 (péng)</span>
+              <p class="text-xs text-slate-500 my-2 chinese-font">
+                "péng" 的声母是什么？
+              </p>
+              <select
+                id="q15"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1 font-bold text-center"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="p">p</option>
+                <option value="b">b</option>
+                <option value="m">m</option>
+              </select>
+            </div>
+
+            <div class="border-2 border-slate-200 rounded-2xl p-4 text-center">
+              <span class="text-2xl font-black text-slate-800">大 (dà)</span>
+              <p class="text-xs text-slate-500 my-2 chinese-font">
+                "dà" 的声母是什么？
+              </p>
+              <select
+                id="q16"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1 font-bold text-center"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="t">t</option>
+                <option value="d">d</option>
+                <option value="n">n</option>
+              </select>
+            </div>
+
+            <div class="border-2 border-slate-200 rounded-2xl p-4 text-center">
+              <span class="text-2xl font-black text-slate-800">好 (hǎo)</span>
+              <p class="text-xs text-slate-500 my-2 chinese-font">
+                "hǎo" 的复合韵母是什么？
+              </p>
+              <select
+                id="q17"
+                class="w-full border-2 border-slate-300 rounded-xl px-2 py-1 font-bold text-center"
+              >
+                <option value="">-- 请选择 --</option>
+                <option value="ao">ao</option>
+                <option value="ou">ou</option>
+                <option value="an">an</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: SENTENCE STRUCTURE (句型: 我有...) -->
+      <section
+        class="bg-white rounded-3xl p-6 shadow-xl border-4 border-amber-200 mb-8 print-border"
+      >
+        <div
+          class="flex items-center space-x-3 mb-6 border-b-2 border-amber-100 pb-3"
+        >
+          <span
+            class="bg-purple-600 text-white font-black text-lg px-3 py-1 rounded-xl chinese-font"
+            >第四部分</span
+          >
+          <h3 class="xl:text-xl font-bold text-slate-800 chinese-font">
+            句型练习: 我有... (Jùxíng liànxí: Wǒ yǒu...)
+          </h3>
+        </div>
+
+        <!-- Context Info Box -->
+        <div
+          class="bg-purple-50 rounded-2xl p-4 border border-purple-200 mb-6 flex items-start space-x-3"
+        >
+          <div class="text-2xl">💡</div>
+          <div class="text-xs sm:text-sm text-purple-900 chinese-font">
+            <p class="font-bold">第一课句型 (Dì yī kè jùxíng):</p>
+            <p><b>主语 + 有 (yǒu) + 数字 + 个 + 名词</b></p>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Q18 -->
+          <div class="bg-slate-50 p-4 rounded-2xl border-2 border-slate-200">
+            <p class="font-bold text-slate-700 mb-2 chinese-font">
+              1. 翻译句子 (Fānyì jùzi): "Saya punya 5 teman baik."
+            </p>
+            <div
+              class="flex flex-wrap items-center gap-2 text-lg font-bold chinese-font"
+            >
+              <span>我有 (Wǒ yǒu)</span>
+              <select
+                id="q18_1"
+                class="border-2 border-purple-300 rounded-xl px-2 py-1 bg-white chinese-font"
+              >
+                <option value="">-- 数字 --</option>
+                <option value="五">五 (wǔ)</option>
+                <option value="十">十 (shí)</option>
+                <option value="三">三 (sān)</option>
+              </select>
+              <span>个</span>
+              <select
+                id="q18_2"
+                class="border-2 border-purple-300 rounded-xl px-2 py-1 bg-white chinese-font"
+              >
+                <option value="">-- 名词 --</option>
+                <option value="好朋友">好朋友 (hǎo péngyou)</option>
+                <option value="数字">数字 (shùzì)</option>
+              </select>
+              <span>。</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUBMIT & FOOTER BUTTONS -->
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center gap-4 my-10 no-print"
+      >
+        <button
+          onclick="checkAnswers()"
+          class="w-full sm:w-auto bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-black text-xl px-10 py-4 rounded-2xl shadow-xl transition transform active:scale-95 flex items-center justify-center space-x-3 chinese-font"
+        >
+          <i class="fa-solid fa-trophy text-2xl"></i>
+          <span>提交并检查成绩！(Tǐjiāo bìng jiǎnchá chéngjī!)</span>
+        </button>
+        <button
+          onclick="resetHomework()"
+          class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-lg px-6 py-4 rounded-2xl transition flex items-center justify-center space-x-2 chinese-font"
+        >
+          <i class="fa-solid fa-rotate-right"></i>
+          <span>重置练习 (Chóngzhì liànxí)</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- Audio Player Helper -->
+    <script>
+      // Web Speech API for Chinese Speech Synthesis
+      function speak(text) {
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+          const msg = new SpeechSynthesisUtterance(text);
+          msg.lang = "zh-CN";
+          msg.rate = 0.8; // slightly slower for kids
+          window.speechSynthesis.speak(msg);
+        } else {
+          alert("浏览器不支持语音朗读功能。");
+        }
+      }
+
+      // Web Audio Synthesizer sound effects
+      function playSound(type) {
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          if (type === "success") {
+            osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+            osc.frequency.exponentialRampToValueAtTime(
+              659.25,
+              ctx.currentTime + 0.1,
+            ); // E5
+            osc.frequency.exponentialRampToValueAtTime(
+              783.99,
+              ctx.currentTime + 0.2,
+            ); // G5
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.4);
+          } else {
+            osc.frequency.setValueAtTime(220, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(
+              164.81,
+              ctx.currentTime + 0.2,
+            );
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.3);
+          }
+        } catch (e) {
+          console.log("Audio not allowed yet");
+        }
+      }
+
+      // Canvas Drawing Setup
+      function setupCanvas(canvasId) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        let isDrawing = false;
+
+        ctx.lineWidth = 6;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "#dc2626"; // Red color for Hanzi writing
+
+        function getPos(e) {
+          const rect = canvas.getBoundingClientRect();
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+          return {
+            x: clientX - rect.left,
+            y: clientY - rect.top,
+          };
+        }
+
+        function startDraw(e) {
+          isDrawing = true;
+          const pos = getPos(e);
+          ctx.beginPath();
+          ctx.moveTo(pos.x, pos.y);
+        }
+
+        function draw(e) {
+          if (!isDrawing) return;
+          e.preventDefault();
+          const pos = getPos(e);
+          ctx.lineTo(pos.x, pos.y);
+          ctx.stroke();
+        }
+
+        function stopDraw() {
+          isDrawing = false;
+        }
+
+        canvas.addEventListener("mousedown", startDraw);
+        canvas.addEventListener("mousemove", draw);
+        canvas.addEventListener("mouseup", stopDraw);
+        canvas.addEventListener("mouseleave", stopDraw);
+
+        canvas.addEventListener("touchstart", startDraw);
+        canvas.addEventListener("touchmove", draw);
+        canvas.addEventListener("touchend", stopDraw);
+      }
+
+      function clearCanvas(canvasId) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+
+      window.onload = function () {
+        setupCanvas("canvas1");
+        setupCanvas("canvas2");
+      };
+
+      // Answer Key & Grading Logic
+      const answers = {
+        q1: "sān",
+        q2: "liù",
+        q3: "bā",
+        q4: "wǔ",
+        q5: "shí",
+        q6: "7",
+        q7: "6",
+        q8: "10",
+        q9: "héng",
+        q10: "shù",
+        q11: "piě",
+        q12: "nà",
+        q13: "1",
+        q14: "3",
+        q15: "p",
+        q16: "d",
+        q17: "ao",
+        q18_1: "五",
+        q18_2: "好朋友",
+      };
+
+      function checkAnswers() {
+        let total = Object.keys(answers).length;
+        let correctCount = 0;
+
+        for (let key in answers) {
+          let elem = document.getElementById(key);
+          let val = elem ? elem.value : "";
+
+          if (val === answers[key]) {
+            correctCount++;
+            if (elem && elem.tagName === "SELECT") {
+              elem.classList.remove("border-slate-300", "border-red-500");
+              elem.classList.add("border-green-500", "bg-green-50");
+            }
+          } else {
+            if (elem && elem.tagName === "SELECT") {
+              elem.classList.remove("border-slate-300", "border-green-500");
+              elem.classList.add("border-red-500", "bg-red-50");
+            }
+          }
+        }
+
+        let score = Math.round((correctCount / total) * 100);
+        document.getElementById("scoreDisplay").innerText = score + " / 100";
+
+        if (score >= 80) {
+          playSound("success");
+          document.getElementById("badgeCount").innerText =
+            "⭐ " + Math.floor(score / 10) + " 颗星! 🎉";
+          alert(
+            `太棒了！你的分数是 ${score}/100！(Tài bàng le! Nǐ de fēnshù shì ${score}/100!) 🌟`,
+          );
+        } else {
+          playSound("wrong");
+          alert(`你的分数是 ${score}/100。请检查红色的错误答案！加油！`);
+        }
+      }
+
+      function resetHomework() {
+        if (
+          confirm(
+            "你确定要重置所有答案吗？ (Nǐ quèdìng yào chóngzhì suǒyǒu dá'àn ma?)",
+          )
+        ) {
+          document.querySelectorAll("select").forEach((s) => {
+            s.value = "";
+            s.classList.remove(
+              "border-green-500",
+              "border-red-500",
+              "bg-green-50",
+              "bg-red-50",
+            );
+            s.classList.add("border-slate-300");
+          });
+          clearCanvas("canvas1");
+          clearCanvas("canvas2");
+          document.getElementById("scoreDisplay").innerText = "0 / 100";
+          document.getElementById("badgeCount").innerText = "⭐ 0 颗星";
+        }
+      }
+
+      function toggleMode() {
+        const btnText = document.getElementById("modeText");
+        if (btnText.innerText === "互动模式") {
+          btnText.innerText = "普通模式";
+          alert("互动模式已开启！声音和特效已启用。");
+        } else {
+          btnText.innerText = "互动模式";
+        }
+      }
+    </script>
+  </body>
+</html>
